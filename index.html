@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ari Lasso-Cinta Terakhir</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url("assets/syauqi.jpg") no-repeat center center fixed;
+            background-size: cover;
+            color: gold;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        #lyrics-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lyrics {
+            position: absolute;
+            top: 80%;
+            transform: translateX(-50%);
+            left: 50%;
+            font-size: 50px;
+            color: gold;
+            text-align: center;
+            font-style: italic;
+            white-space: nowrap;
+        }
+
+        @keyframes moveText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .scrolling {
+            animation: moveText 10s linear infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="myAudio" controls>
+        <source src="assets/cinta terakhir.mp3" type="audio/mp3">
+        Maaf, Browser Anda tidak mendukung pemutar musik ini.
+    </audio>
+
+    <div id="lyrics-container">
+        <div id="lyrics">Ari Lasso-Cinta Terakhir</div>
+    </div>
+
+    <script>
+        const audio = document.getElementById("myAudio");
+        const lyricsText = document.getElementById("lyrics");
+        const songlyrics = [
+            { time: 2, text: "Hoo" },
+            { time: 6, text: "Kini" },
+            { time: 10, text: "Usai sudah" },
+            { time: 12, text: "Segala penantian panjangku" },
+            { time: 16, text: "Setelah temukan dirimu" },
+            { time: 19, text: "Duhai kekasihku" },
+            { time: 23, text: "Hanya di hatimu" },
+            { time: 29, text: "Akan ku labuhkan hidupku" },
+            { time: 35, text: "Karena kau lah cinta terakhirku" }
+        ];
+
+        audio.addEventListener("timeupdate", function() {
+            const currentTime = audio.currentTime;
+            for (let i = 0; i < songlyrics.length; i++) {
+                if (currentTime >= songlyrics[i].time && (i === songlyrics.length - 1 || currentTime < songlyrics[i + 1].time)) {
+                    lyricsText.textContent = songlyrics[i].text;
+                    break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
